@@ -1,0 +1,23 @@
+{
+	"report_name":"test",
+	"strings_artifacts":
+		[
+			{"string":"confidential document", "name":"english confidential document", "dvs":1},
+			{"string":"confidential", "name":"english confidential word", "dvs":1},
+			{"string":"begin pgp private key", "name":"pgp private key", "dvs":8},
+			{"string":"bitlocker recovery key:", "name":"bitlocker recovery key", "dvs":8},
+			{"string":":::VISACREDITCARD:::", "name":"Visa credit card", "dvs":10},
+			{"string":":::IBAN:::", "name":"IBAN", "dvs":9},
+			{"string":":::IPV4:::", "name":"IPv4 address", "dvs":2},
+			{"string":":::EMAIL:::", "name":"generic email", "dvs":2},
+			{"string":"\\b[a-zA-Z]{4}[0-9]{4}\\b", "name":"cuid", "dvs":3},
+			{"string":"coucoutest", "name":"search for coucoutest DEV", "dvs":0.1}
+		],
+	"impersonate":
+	{
+		"username":"test",
+		"password":"test"
+	},
+	"max_urls": 100,
+	"dev": true
+}

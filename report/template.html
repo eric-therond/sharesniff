@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sharesniff v1.0</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>  
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
+<style>
+.tabs {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+#tab-button {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#tab-button li {
+  display: table-cell;
+  width: 20%;
+}
+#tab-button li a {
+  display: block;
+  padding: .5em;
+  background: #eee;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #000;
+  text-decoration: none;
+}
+#tab-button li:not(:first-child) a {
+  border-left: none;
+}
+#tab-button li a:hover,
+#tab-button .is-active a {
+  border-bottom-color: transparent;
+  background: #fff;
+}
+.tab-contents {
+  padding: .5em 2em 1em;
+  border: 1px solid #ddd;
+}
+
+
+
+.tab-button-outer {
+  display: none;
+}
+.tab-contents {
+  margin-top: 20px;
+}
+@media screen and (min-width: 768px) {
+  .tab-button-outer {
+    position: relative;
+    z-index: 2;
+    display: block;
+  }
+  .tab-select-outer {
+    display: none;
+  }
+  .tab-contents {
+    position: relative;
+    top: -1px;
+    margin-top: 0;
+  }
+}
+</style>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script src="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+<script src="./datatable.js"></script>  
+ 
+</head>
+
+<body>
+  <header>
+    <div class="jumbotron" style="heigth:10px !important">
+      <div class="container">
+        <h3><b>Sharesniff v1.0</b></h3>
+		Result for <script language="javascript">document.write(report_name);</script> on <script language="javascript">document.write(date);</script>
+      </div> 
+    </div> 
+  </header>
+  <div class="tabs">
+  <div class="tab-button-outer">
+    <ul id="tab-button">
+      <li><a href="#tab01">Documents value</a></li>
+      <li><a href="#tab02">Artifacts</a></li>
+    </ul>
+  </div>
+  <div id="tab01" class="tab-contents">
+	<table id="my-table2" class="display nowrap" cellspacing="0" width="100%"></table>
+  </div>
+  <div id="tab02" class="tab-contents">
+	<table id="my-table1" class="display nowrap" cellspacing="0" width="100%"></table>
+  </div>
+  </div>
+
+
+  <footer>
+    <hr>
+  </footer>
+
+<script language="javascript">
+$('#my-table1').bootstrapTable({
+	data: data1,
+	search: true,
+	pagination: true,
+	columns: [{
+		field: 'filename',
+		title: 'Filename',
+		sortable: true
+	}, {
+		field: 'artifact',
+		title: 'Artifact',
+		sortable: true
+	}, {
+		field: 'dvs',
+		title: 'Digital value score of artifact',
+		sortable: true
+	}, {
+		field: 'nbartifacts',
+		title: 'Number of artifact',
+		sortable: true
+/*
+		formatter: (value, row, index, field) => {
+			return value + ' - ' + row.address.suite + ' - ' + row.address.city
+		}
+		*/
+	}]
+});
+
+$('#my-table2').bootstrapTable({
+	data: data2,
+	search: true,
+	pagination: true,
+	columns: [{
+		field: 'filename',
+		title: 'Filename',
+		sortable: true
+	}, {
+		field: 'dvs',
+		title: 'Digital value score of document',
+		sortable: true
+	}]
+});
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+$(function() {
+  var $tabButtonItem = $('#tab-button li'),
+      $tabSelect = $('#tab-select'),
+      $tabContents = $('.tab-contents'),
+      activeClass = 'is-active';
+
+  $tabButtonItem.first().addClass(activeClass);
+  $tabContents.not(':first').hide();
+
+  $tabButtonItem.find('a').on('click', function(e) {
+    var target = $(this).attr('href');
+
+    $tabButtonItem.removeClass(activeClass);
+    $(this).parent().addClass(activeClass);
+    $tabSelect.val(target);
+    $tabContents.hide();
+    $(target).show();
+    e.preventDefault();
+  });
+
+  $tabSelect.on('change', function() {
+    var target = $(this).val(),
+        targetSelectNum = $(this).prop('selectedIndex');
+
+    $tabButtonItem.removeClass(activeClass);
+    $tabButtonItem.eq(targetSelectNum).addClass(activeClass);
+    $tabContents.hide();
+    $(target).show();
+  });
+});
+</script>
+</body> 
+</html>
