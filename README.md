@@ -50,6 +50,6 @@ Analysis of a website:
 .\sharesniff.ps1 website url
 ```
 
-## Résultats
+## Results
 
 The result of the analysis is written in the ./report/datatable.js file and a web HMI is available here ./report/template.html
